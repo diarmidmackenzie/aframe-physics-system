@@ -4,8 +4,10 @@
   "description": "Physics system for A-Frame VR, built on Cannon.js & Ammo.js",
   "main": "index.js",
   "scripts": {
-    "dev": "budo index.js:dist/aframe-physics-system.js -d examples --port 8000 -- -g browserify-shim",
-    "dist": "browserify -g browserify-shim index.js -o dist/aframe-physics-system.js && uglifyjs -c -o dist/aframe-physics-system.min.js -- dist/aframe-physics-system.js",
+    "dev": "npx webpack serve",
+    "dist": "npm run dist:dev && npm run dist:prod",
+    "dist:dev": "webpack --config webpack.config.js",
+    "dist:prod": "webpack --config webpack.prod.config.js",
     "test": "karma start ./tests/karma.conf.js",
     "test:once": "karma start ./tests/karma.conf.js --single-run",
     "test:firefox": "karma start ./tests/karma.conf.js --browsers Firefox",
@@ -15,9 +17,6 @@
     "preversion:readme": "replace 'aframe-physics-system@v\\d+\\.\\d+\\.\\d+' \"aframe-physics-system@v$npm_package_version\" ./README.md",
     "version": "npm run preversion:readme && npm run dist && git add -A dist README.md",
     "postversion": "git push && git push --tags && npm publish"
-  },
-  "browserify-shim": {
-    "three": "global:THREE"
   },
   "repository": {
     "type": "git",
@@ -46,19 +45,17 @@
     "aframe-stats-panel": "^0.2.1",
     "ammo-debug-drawer": "^0.1.0",
     "cannon-es": "^0.9.1",
-    "three-to-ammo": "^0.1.0",
+    "three-to-ammo": "0.1.0",
     "three-to-cannon": "^4.0.0",
-    "webworkify": "^1.4.0"
+    "webpack": "^5.75.0",
+    "webpack-dev-server": "^4.11.1",
+    "webworkify-webpack": "^2.1.5"
   },
   "peerDependencies": {
     "aframe": ">=0.5.0"
   },
   "devDependencies": {
     "aframe": "~1.1.0",
-    "browserify": "^16.5.1",
-    "browserify-css": "^0.15.0",
-    "browserify-shim": "^3.8.14",
-    "budo": "^11.6.3",
     "chai": "^3.5.0",
     "chai-shallow-deep-equal": "^1.4.6",
     "envify": "^4.1.0",
@@ -76,7 +73,8 @@
     "sinon": "^2.4.1",
     "sinon-chai": "^2.14.0",
     "three": ">=0.125.0",
-    "uglify-es": "^3.3.9"
+    "uglify-es": "^3.3.9",
+    "webpack-cli": "^5.0.1"
   },
   "directories": {
     "doc": "docs",
