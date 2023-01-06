@@ -92,7 +92,7 @@ var Body = {
 
     // If component wasn't initialized when play() was called, finish up.
     if (this.isPlaying) {
-      this._play();
+      this.play();
     }
 
     if (this.isLoaded) {
