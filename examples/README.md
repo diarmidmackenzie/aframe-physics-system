@@ -17,4 +17,5 @@ Examples marked "Limited" have limitations in terms of what function can be exer
 | Animate a long wall moving along the z-axis along the initial view direction. | [**OK**](cannon/sweeper.html)     | [**Broken**](cannon-worker/sweeper.html)           | [**OK**](ammo/sweeper.html) |
 | Remove a [dynamic body](../README.md#dynamic-body-and-static-body) from the scene after 100 frames | [**OK**](cannon/ttl.html)         | [**Broken**](cannon-worker/ttl.html)               | [**OK**](ammo/ttl.html) |
 | Performance test: 100 balls rolling down a peg board, with timing data from physics engine. | [**OK**](cannon/perf.html) | [**Broken**](cannon-worker/perf.html) | [**OK**](ammo/perf.html) |
+| Dragging objects using the mouse | Not yet implemented | Not yet implemented | [**OK**](ammo/dragging.html) |
 
