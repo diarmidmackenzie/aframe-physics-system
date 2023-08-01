@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
+    <title>Examples • Restitution Ammo</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
+    <script src="../../dist/aframe-physics-system.js"></script>
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <div class="text-overlay">
+      <p>Bounce simulation with restitution (bounciness) of 1 using the Ammo driver.</p>
+    </div>
+        <a class="code-link"
+        target="_blank"
+        href="https://github.com/c-frame/physx/blob/master/examples/materials/index.html">
+        view code
+    </a>
+    <a-scene stats="true"
+             environment
+             physics="driver: ammo">
+
+        <a-assets>
+        <script id="chuteTemplate" type="text/html">
+          <a-box position="0 2.5 -0.3" width="1" height="5" depth="0.1"
+                 ammo-body="type: static; restitution:0"
+                 ammo-shape="type: box">
+          </a-box>
+          <a-box position="0 0 0.15" width="1" height="0.1" depth="1"
+                 ammo-body="type: static; restitution:1"
+                 ammo-shape="type: box">
+          </a-box>     
+          <a-sphere radius="0.25" position="0 4 0" color="red"
+               ammo-body="type: dynamic;
+                          linearSleepingThreshold: 0;
+                          angularSleepingThreshold: 0;
+                          linearDamping: 0;
+                          angularDamping: 0;
+                          restitution: 1.1"
+               ammo-shape="type: sphere">
+          </a-sphere>
+        </script>
+      </a-assets>
+      <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+
+      <!-- Terrain -->
+      <a-box width="75" height="0.1" depth="75" physx-body="type: static"
+             physx-material="restitution: 1"
+             visible="false"></a-box>
+
+      <a-entity rotation="0 90 0" position="0 1 -20" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-15 90 0" position="0 1 -18" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-30 90 0" position="0 1 -16" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-45 90 0" position="0 1 -14" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-60 90 0" position="0 1 -12" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-75 90 0" position="0 1 -10" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-80 90 0" position="0 1 -8" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-85 90 0" position="0 1 -6" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-88 90 0" position="0 1 -4" template="src: #chuteTemplate">
+      </a-entity>
+      <a-entity rotation="-89 90 0" position="0 1 -2" template="src: #chuteTemplate">
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
