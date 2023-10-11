@@ -385,7 +385,18 @@ let AmmoBody = {
       const body = this.body
       delete this.el.body;
       delete this.body;
-      Ammo.destroy(body);
+
+      if (!this.data.emitCollisionEvents) {
+        // As per issue 47 / PR 48 there is a strange bug
+        // not yet understood, where destroying an Ammo body 
+        // leads to subsequent issues reporting collision events.
+        // 
+        // So if we are reporting collision events, preferable to
+        // tolerate a small memory leak, by not destroying the 
+        // Ammo body, rather than missing collision events.
+        Ammo.destroy(body);
+      }
+      
     }
   },
 
