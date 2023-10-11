@@ -1,0 +1,68 @@
+<html>
+
+<head>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
+  <script src="../../dist/aframe-physics-system.js"></script>
+  <link rel="stylesheet" href="../../examples/styles.css">
+  <script>
+    var remove_e = false;
+    AFRAME.registerComponent('collision-listener', {
+
+      init: function() {
+        this.el.addEventListener('collidestart', function(e) {
+          if (remove_e) {
+            e.target.parentNode.removeChild(e.target);
+          } else {
+            e.target.setAttribute('color', "blue");
+          }
+        });
+      }
+    });
+    setInterval(function() {
+
+      var cube_ = document.createElement('a-box');
+      cube_.setAttribute('color', "red");
+      cube_.setAttribute('width', "0.20");
+      cube_.setAttribute('height', "0.20");
+      cube_.setAttribute('depth', "0.20");
+      cube_.setAttribute('position', "0 3 -6");
+      cube_.setAttribute('ammo-body', "type: dynamic; mass: 1;emitCollisionEvents: true;gravity:0 -9 0; collisionFilterGroup: 2; collisionFilterMask: 1;");
+      cube_.setAttribute('ammo-shape', "type: box");
+      cube_.setAttribute('collision-listener', "");
+
+      document.querySelector('a-scene').appendChild(cube_);
+
+    }, 1000);
+
+    document.addEventListener('keydown', onDocumentkeydown, false);
+
+    function onDocumentkeydown(event) {
+      if (remove_e) {
+        remove_e = false;
+      } else {
+        remove_e = true;
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="text-overlay">
+    <p>Test collision detection interactions with block removal.</p>
+    <p>Press a key to toggle block removal.</p>
+    <p>Blocks should consistently turn blue on collision *or* be deleted.</p>
+    <p>Test written by @smeybi for issue#47</p>
+  </div>
+      <a class="code-link"
+      target="_blank"
+      href="https://github.com/c-frame/aframe-physics-system/blob/master/tests/live/issue-47.html">
+      view code
+  </a>
+  <a-scene physics="driver: ammo; debug: false;">
+    <a-box position="0 2 -6" rotation="0 0 45" color="red" width="1" height="0.1" depth="1" ammo-body="type: static; emitCollisionEvents: true; collisionFilterGroup: 3; collisionFilterMask: 2;" ammo-shape="type: box"></a-box>
+    <a-box position="0 -2 -6" rotation="0 0 -15" color="green" width="10" height="0.1" depth="10" ammo-body="type: static;emitCollisionEvents: true; collisionFilterGroup: 3; collisionFilterMask: 2; " ammo-shape="type: box"></a-box>
+  </a-scene>
+</body>
+
+</html>
