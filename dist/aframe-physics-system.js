@@ -14209,7 +14209,7 @@ let AmmoBody = {
       const body = this.body
       delete this.el.body;
       delete this.body;
-      //setTimeout(() => Ammo.destroy(body), 100)
+      Ammo.destroy(body);
     }
   },
 
