@@ -396,7 +396,6 @@ let AmmoBody = {
         // Ammo body, rather than missing collision events.
         Ammo.destroy(body);
       }
-      
     }
   },
 
