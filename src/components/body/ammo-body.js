@@ -283,13 +283,12 @@ let AmmoBody = {
 
   _removeFromSystem: function() {
     if (this.addedToSystem) {
-      this.system.removeBody(this.body);
-
+      
+      this.system.removeComponent(this);
       if (this.data.emitCollisionEvents) {
         this.system.driver.removeEventListener(this.body);
       }
-
-      this.system.removeComponent(this);
+      this.system.removeBody(this.body);
       this.addedToSystem = false;
     }
   },
@@ -372,19 +371,22 @@ let AmmoBody = {
   remove: function() {
 
     this._removeFromSystem()
+    this.el.removeAttribute('ammo-shape')
 
     if (this.triMesh) Ammo.destroy(this.triMesh);
     if (this.localScaling) Ammo.destroy(this.localScaling);
     if (this.compoundShape) Ammo.destroy(this.compoundShape);
-    if (this.body) {
-      Ammo.destroy(this.body);
-      delete this.body;
-    }
     Ammo.destroy(this.rbInfo);
     Ammo.destroy(this.msTransform);
     Ammo.destroy(this.motionState);
     Ammo.destroy(this.localInertia);
     Ammo.destroy(this.rotation);
+    if (this.body) {
+      const body = this.body
+      delete this.el.body;
+      delete this.body;
+      Ammo.destroy(body);
+    }
   },
 
   beforeStep: function() {
