@@ -281,15 +281,24 @@ let AmmoBody = {
     }
   },
 
+  _removeFromSystem: function() {
+    if (this.addedToSystem) {
+      this.system.removeBody(this.body);
+
+      if (this.data.emitCollisionEvents) {
+        this.system.driver.removeEventListener(this.body);
+      }
+
+      this.system.removeComponent(this);
+      this.addedToSystem = false;
+    }
+  },
+
   /**
    * Unregisters the component with the physics system.
    */
   pause: function() {
-    if (this.addedToSystem) {
-      this.system.removeComponent(this);
-      this.system.removeBody(this.body);
-      this.addedToSystem = false;
-    }
+    this._removeFromSystem()
   },
 
   /**
@@ -361,6 +370,9 @@ let AmmoBody = {
    * Removes the component and all physics and scene side effects.
    */
   remove: function() {
+
+    this._removeFromSystem()
+
     if (this.triMesh) Ammo.destroy(this.triMesh);
     if (this.localScaling) Ammo.destroy(this.localScaling);
     if (this.compoundShape) Ammo.destroy(this.compoundShape);
