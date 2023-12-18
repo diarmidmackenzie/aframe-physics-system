@@ -14072,7 +14072,9 @@ let AmmoBody = {
     const indexes = [];
 
     const root = shapeComponent.el.object3D;
+    root.updateMatrixWorld();
     const matrixWorld = root.matrixWorld;
+    
 
     threeToAmmo.iterateGeometries(root, data, (vertexArray, matrixArray, indexArray) => {
       vertices.push(vertexArray);
