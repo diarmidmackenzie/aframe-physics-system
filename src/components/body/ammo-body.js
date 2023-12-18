@@ -411,8 +411,9 @@ let AmmoBody = {
     const v2 = new THREE.Vector3();
     return function() {
       const el = this.el,
-        parentEl = el.parentEl,
-        body = this.body;
+        body = this.body, 
+        // see notes on parentEl in syncFromPhysics
+        parentEl = el.object3D.parent.el ? el.object3D.parent.el : el.parentEl;
 
       if (!body) return;
 
