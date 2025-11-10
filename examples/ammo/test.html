@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>   
+    <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
+    <script src="../../dist/aframe-physics-system.js"></script>
+    <script>
+      AFRAME.registerComponent('hide-meshes', {
+        init() {
+          this.el.addEventListener('object3dset', this.onObject3DSet.bind(this))
+          const mesh = this.el.getObject3D('mesh')
+          if (mesh) {
+            mesh.visible = false
+          }
+        },
+
+        onObject3DSet(event) {
+          event.detail.object.visible = false
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <a-scene physics="driver: ammo; debug: true;">
+      <a-entity position="0 0 -4">
+        <a-box id="floor" height="0.5" width="10" depth="10" position="0 -2.5 0" ammo-body="type: static" ammo-shape></a-box>
+        <a-box id="box" height="0.5" width="0.5" depth="0.5" material="color: red;" ammo-body="type: dynamic; mass: 1;" ammo-shape="type: hull;">
+          <a-box id="inner-box" visible="false" hide-meshes ammo-body="type: kinematic; emitCollisionEvents: true; disableCollision: true;" ammo-shape="includeInvisible: true"></a-box>
+        </a-box>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
+
